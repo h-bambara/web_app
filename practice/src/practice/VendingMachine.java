@@ -25,6 +25,15 @@ public class VendingMachine {
 	 * ここら辺にアクセサメソッドを記述予定
 	 */
 
+	//ゲッター
+	public int getMoney() {
+		return money;
+	}
+
+	//セッター
+	public void setMoney(int money) {
+		this.money = money;
+	}
 
 	//投入金額の確認
 	public void showMoney() {
@@ -73,5 +82,14 @@ public class VendingMachine {
 			money += 1000;
 		}
 	}
+
+	//買えるドリンクのチェック
+	public void checkDrink() {
+		for(int i = 0; i < drinkList.size(); i++) {
+			if(drinkList.get(i).getStock() > 0 && money >= drinkList.get(i).getValue())
+			System.out.println(drinkList.get(i).getName());
+		}
+	}
+
 
 }
