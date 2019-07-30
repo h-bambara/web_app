@@ -3,7 +3,9 @@ package practice;
 import java.util.ArrayList;
 
 public class VendingMachine {
+	//投入金額
 	private int money;
+	//自販機の中に格納されるドリンクの配列
 	private ArrayList<Drink> drinkList;
 
 
@@ -30,9 +32,17 @@ public class VendingMachine {
 		return money;
 	}
 
+	public ArrayList<Drink> getDrinkList() {
+		return drinkList;
+	}
+
 	//セッター
 	public void setMoney(int money) {
 		this.money = money;
+	}
+
+	public void setDrinkList(Drink drink) {
+		this.drinkList.add(drink);
 	}
 
 	//投入金額の確認
@@ -91,5 +101,18 @@ public class VendingMachine {
 		}
 	}
 
+	//自販機の中にあるドリンクの在庫取得
+	public void showDrink() {
+		for(int i = 0; i < drinkList.size(); i++) {
+			System.out.println("ドリンク名:" + drinkList.get(i).getName() +
+								" 値段:" + drinkList.get(i).getValue() + " 在庫数:" + drinkList.get(i).getStock() );
+		}
+	}
+
+	//自動販売機にドリンクを補充する
+	public void replenishDrink(String name, int value, int stock) {
+		Drink drink = new Drink(name, value, stock);
+		setDrinkList(drink);
+	}
 
 }
