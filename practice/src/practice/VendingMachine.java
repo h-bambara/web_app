@@ -111,8 +111,48 @@ public class VendingMachine {
 
 	//自動販売機にドリンクを補充する
 	public void replenishDrink(String name, int value, int stock) {
+		//既に自動販売機の中にある場合の処理が必要(2019/08/01現在:改修予定)
 		Drink drink = new Drink(name, value, stock);
 		setDrinkList(drink);
+	}
+
+	//購入処理
+	//名前で検索し，在庫，お金があれば購入し，在庫とお金をその分減らす．
+	public void buyDrink(String name) {
+		int drinkListNum = -1;
+		for(int i = 0; i < drinkList.size(); i++) {
+			if(drinkList.get(i).getName().equals(name)) {
+				drinkListNum = i;
+			}
+		}
+		if(drinkListNum == -1) {
+			System.out.println("そのような飲み物は扱っておりません．");
+			System.out.println("以下に取り扱っている飲み物を表示します．");
+			showDrink();
+		}else {
+			if(money >= drinkList.get(drinkListNum).getValue()) {
+				if(drinkList.get(drinkListNum).getStock() >= 1) {
+					//購入処理
+					System.out.println("毎度ありがとうございます！" + drinkList.get(drinkListNum).getName() + "をお受け取りください．");
+					//在庫数を1引く
+					drinkList.get(drinkListNum).setStock(drinkList.get(drinkListNum).getStock() - 1);
+					//購入した分，お金を減らす
+					setMoney(getMoney() - drinkList.get(drinkListNum).getValue());
+					//お釣りを返却するか，そのまま購入できるか選べるようにするかは改修予定
+					System.out.println("残金: " + getMoney() + "円です");
+				}
+				//売り切れ中
+				else {
+					System.out.println("申し訳ございません. " + drinkList.get(drinkListNum).getName() + "は売り切れです．");
+					System.out.println("以下に購入可能な飲み物を表示します．");
+					checkDrink();
+				}
+			}
+			//お金が足りない
+			else {
+				System.out.println("お金が" + (drinkList.get(drinkListNum).getValue() - money) + "円足りません．" );
+			}
+		}
 	}
 
 }
