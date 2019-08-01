@@ -35,7 +35,18 @@ public class Test {
 
 		//自動販売機に格納されている飲み物を全件取得する(水が1個減っていることを確認)
 		machine1.showDrink();
+		System.out.println("************************************************************");
 
+		//水を2個補充
+		//水が6個になるはず
+		machine1.replenishDrink("水", 100, 2);
+		machine1.showDrink();
+		System.out.println("************************************************************");
+
+		//水の値段を200円に上げる
+		machine1.replenishDrink("水", 200, 0);
+		machine1.showDrink();
+		System.out.println("************************************************************");
 
 	}
 

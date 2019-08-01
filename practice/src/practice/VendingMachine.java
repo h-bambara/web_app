@@ -111,9 +111,22 @@ public class VendingMachine {
 
 	//自動販売機にドリンクを補充する
 	public void replenishDrink(String name, int value, int stock) {
-		//既に自動販売機の中にある場合の処理が必要(2019/08/01現在:改修予定)
-		Drink drink = new Drink(name, value, stock);
-		setDrinkList(drink);
+		boolean listFlag = false;
+		int drinkListNum = -1;
+		for(int i = 0; i < drinkList.size(); i++) {
+			if(drinkList.get(i).getName().equals(name)) {
+				listFlag = true;
+				drinkListNum = i;
+			}
+		}
+		if(listFlag) {
+			drinkList.get(drinkListNum).setStock(drinkList.get(drinkListNum).getStock() + stock);
+			drinkList.get(drinkListNum).setValue(value);
+		}
+		else{
+			Drink drink = new Drink(name, value, stock);
+			setDrinkList(drink);
+		}
 	}
 
 	//購入処理
